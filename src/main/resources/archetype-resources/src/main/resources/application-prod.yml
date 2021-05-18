@@ -1,0 +1,50 @@
+server:
+    port: 8888
+    servlet:
+        encoding:
+            charset: UTF-8
+    tomcat:
+        uri-encoding: UTF-8
+        max-http-form-post-size: -1
+
+spring:
+    profiles:
+        active: prod
+    http:
+        encoding:
+            force: true
+            charset: UTF-8
+            enabled: true
+    servlet:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 1000MB
+    datasource:
+            url: jdbc:mysql://localhost:3306/${artifactId}?characterEncoding=utf8&useSSL=true&allowMultiQueries=true&serverTimezone=GMT%2B8
+            username: root
+            password:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+    redis:
+        database: 0
+        host: 127.0.0.1
+        port: 6379
+        password:
+        timeout: 1200
+        jedis:
+            pool:
+                max-active: 100
+                max-wait: 10000
+                min-idle: 2
+                max-idle: 100
+
+mybatis:
+    mapper-locations: classpath:mapper/**/*.xml
+    type-aliases-package: ${package}.entity
+
+log:
+    level: info
+    outputLogFile: true
+
+encryption:
+    des:
+        key: ${artifactId}

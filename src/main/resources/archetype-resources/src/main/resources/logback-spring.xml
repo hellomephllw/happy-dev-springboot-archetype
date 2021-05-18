@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback</contextName>
+
+    <!-- 日志级别控制 -->
+    <springProperty scope="context" name="logLevel" source="log.level"/>
+    <!-- 是否输出文件控制 -->
+    <springProperty scope="context" name="outputLogFile" source="log.outputLogFile"/>
+    <!-- 路径控制 -->
+    <springProperty scope="context" name="basePath" source="log.basePath"/>
+    <!-- 日志打印格式控制 -->
+    <property name="pattern" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />
+
+    <!-- 输出到控制台 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 输出到文件 -->
+    <if condition='!property("outputLogFile").contains("false")'>
+        <then>
+            <appender name="fileInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                    <level>INFO</level>
+                    <onMatch>ACCEPT</onMatch>
+                    <onMismatch>DENY</onMismatch>
+                </filter>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>/var/logs/${package}/info/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                    <totalSizeCap>3GB</totalSizeCap>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>${pattern}</pattern>
+                    <charset class="java.nio.charset.Charset">UTF-8</charset>
+                </encoder>
+            </appender>
+            <appender name="fileError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                    <level>ERROR</level>
+                    <onMatch>ACCEPT</onMatch>
+                    <onMismatch>DENY</onMismatch>
+                </filter>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>/var/logs/${package}/error/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                    <totalSizeCap>3GB</totalSizeCap>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>${pattern}</pattern>
+                    <charset class="java.nio.charset.Charset">UTF-8</charset>
+                </encoder>
+            </appender>
+        </then>
+    </if>
+
+    <!-- 日志级别 -->
+    <root level="${logLevel}">
+        <appender-ref ref="console" />
+        <if condition='!property("outputLogFile").contains("false")'>
+            <then>
+                <appender-ref ref="fileInfo" />
+                <appender-ref ref="fileError" />
+            </then>
+        </if>
+    </root>
+
+    <!-- 关闭部分包的日志 -->
+    <logger name="io.swagger.models.parameters.AbstractSerializableParameter" level="OFF" />
+
+</configuration>
