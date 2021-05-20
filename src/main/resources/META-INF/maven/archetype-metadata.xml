@@ -2,18 +2,10 @@
 <archetype-descriptor name="happyDevSpringbootArchetype">
     <fileSets>
         <fileSet filtered="true" packaged="true" encoding="UTF-8">
-            <directory>src/main/java</directory>
-            <includes>
-                <include>**/*.java</include>
-            </includes>
+            <directory>src/main/java/</directory>
         </fileSet>
         <fileSet filtered="true" packaged="false" encoding="UTF-8">
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/*.xml</include>
-                <include>**/*.yml</include>
-                <include>**/*.sql</include>
-            </includes>
+            <directory>src/main/resources/</directory>
         </fileSet>
         <fileSet filtered="true" packaged="true" encoding="UTF-8">
             <directory>src/test/java</directory>
