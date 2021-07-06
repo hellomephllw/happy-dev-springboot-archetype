@@ -72,7 +72,7 @@ dependencies {
 
 /**生成基础代码task*/
 task code (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.code.BasicCodeGenerator'
+    main = 'com.happy.express.code.BasicCodeMybatisGenerator'
     classpath = sourceSets.main.compileClasspath
     args ([basePackagePath] as String[])
 }
@@ -80,57 +80,57 @@ task code (type: JavaExec, dependsOn: classes) {
 /**表生成task*/
 //生成表格task(开发环境, 检查数据库表字段)
 task devCheck (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['dev', 'check', basePackagePath] as String[])
 }
 //生成表格task(开发环境, 执行增量操作)
 task devIncrement (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['dev', 'increment', basePackagePath] as String[])
 }
 //生成表格task(开发环境, 删改数据库字段)
 task devForce (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['dev', 'force', basePackagePath] as String[])
 }
 
 //生成表格task(测试环境, 检查数据库表字段)
 task testCheck (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['test', 'check', basePackagePath] as String[])
 }
 //生成表格task(测试环境, 执行增量操作)
 task testIncrement (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['test', 'increment', basePackagePath] as String[])
 }
 //生成表格task(测试环境, 删改数据库字段)
 task testForce (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['test', 'force', basePackagePath] as String[])
 }
 
 //生成表格task(生产环境, 检查数据库表字段)
 task prodCheck (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['prod', 'check', basePackagePath] as String[])
 }
 //生成表格task(生产环境, 执行增量操作)
 task prodIncrement (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['prod', 'increment', basePackagePath] as String[])
 }
 //生成表格task(生产环境, 删改数据库字段)
 task prodForce (type: JavaExec, dependsOn: classes) {
-    main = 'com.happy.express.persist.mysql.TableGenerator'
+    main = 'com.happy.express.persist.mysql.HappyTableGenerator'
     classpath = sourceSets.main.compileClasspath
     args (['prod', 'force', basePackagePath] as String[])
 }
