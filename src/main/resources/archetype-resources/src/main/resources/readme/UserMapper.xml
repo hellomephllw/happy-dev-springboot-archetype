@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.app.dao.user.UserDao">
+
+    <update id="updateProps">
+        update <include refid="tableName"/>
+        <set>
+            <if test="name!=null">
+                name=#{name}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 以paging结尾的分页插件会自动拦截(eg: userPaging或paging) -->
+    <select id="paging" resultMap="baseResultMap">
+        <bind name="startNo" value="(startNo-1)*pageSize"/>
+        select
+        <include refid="baseColumns"/>
+        from <include refid="tableName"/>
+        <where>
+            <if test="age!=null">
+                age&lt;#{age}
+            </if>
+        </where>
+        limit #{startNo}, #{pageSize}
+    </select>
+
+</mapper>
