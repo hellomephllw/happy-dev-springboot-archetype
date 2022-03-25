@@ -23,15 +23,17 @@
     <if condition='!property("outputLogFile").contains("false")'>
         <then>
             <appender name="fileInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <File>/var/log/${artifactId}/info/info.log</File>
                 <filter class="ch.qos.logback.classic.filter.LevelFilter">
                     <level>INFO</level>
                     <onMatch>ACCEPT</onMatch>
                     <onMismatch>DENY</onMismatch>
                 </filter>
-                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                    <fileNamePattern>/var/logs/${artifactId}/info/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>/var/log/${artifactId}/info/info.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                    <maxFileSize>100MB</maxFileSize>
                     <maxHistory>30</maxHistory>
-                    <totalSizeCap>3GB</totalSizeCap>
+                    <totalSizeCap>10GB</totalSizeCap>
                 </rollingPolicy>
                 <encoder>
                     <pattern>${pattern}</pattern>
@@ -39,15 +41,17 @@
                 </encoder>
             </appender>
             <appender name="fileError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <File>/var/log/${artifactId}/error/error.log</File>
                 <filter class="ch.qos.logback.classic.filter.LevelFilter">
                     <level>ERROR</level>
                     <onMatch>ACCEPT</onMatch>
                     <onMismatch>DENY</onMismatch>
                 </filter>
-                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                    <fileNamePattern>/var/logs/${artifactId}/error/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>/var/log/${artifactId}/error/error.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                    <maxFileSize>100MB</maxFileSize>
                     <maxHistory>30</maxHistory>
-                    <totalSizeCap>3GB</totalSizeCap>
+                    <totalSizeCap>10GB</totalSizeCap>
                 </rollingPolicy>
                 <encoder>
                     <pattern>${pattern}</pattern>
