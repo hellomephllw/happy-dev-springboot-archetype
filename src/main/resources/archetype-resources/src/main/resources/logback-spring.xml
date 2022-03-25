@@ -29,7 +29,7 @@
                     <onMismatch>DENY</onMismatch>
                 </filter>
                 <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                    <fileNamePattern>/var/logs/${package}/info/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <fileNamePattern>/var/logs/${artifactId}/info/info.%d{yyyy-MM-dd}.log</fileNamePattern>
                     <maxHistory>30</maxHistory>
                     <totalSizeCap>3GB</totalSizeCap>
                 </rollingPolicy>
@@ -45,7 +45,7 @@
                     <onMismatch>DENY</onMismatch>
                 </filter>
                 <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                    <fileNamePattern>/var/logs/${package}/error/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <fileNamePattern>/var/logs/${artifactId}/error/error.%d{yyyy-MM-dd}.log</fileNamePattern>
                     <maxHistory>30</maxHistory>
                     <totalSizeCap>3GB</totalSizeCap>
                 </rollingPolicy>
