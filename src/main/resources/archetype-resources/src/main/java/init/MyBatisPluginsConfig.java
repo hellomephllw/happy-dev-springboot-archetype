@@ -11,5 +11,5 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(EasyPagingPlugin.class)
-public class MybatisPluginConfig {
+public class MyBatisPluginsConfig {
 }
