@@ -15,10 +15,10 @@ public class StatusCode {
 
     @ApiModelProperty(value =
             "1 成功\n" +
-                    "0 失败\n" +
-                    "10001 token已过期\n" +
-                    "10002 token缺失\n" +
-                    ""
+            "0 失败\n" +
+            "10001 token已过期\n" +
+            "10002 token缺失\n" +
+            ""
     )
     private String status;
 
