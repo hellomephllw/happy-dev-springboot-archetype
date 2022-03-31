@@ -34,7 +34,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     public ManageAuthInterceptor manageAuthInterceptor() {
         return new ManageAuthInterceptor();
     }
-    /**客户端拦截器*/
+    /**应用端拦截器*/
     @Bean
     public AppAuthInterceptor appAuthInterceptor() {
         return new AppAuthInterceptor();
@@ -74,20 +74,27 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(manageAuthInterceptor())
                 .addPathPatterns("/manage/**")
                 .excludePathPatterns("/manage/admin/login");
-        //客户端权限拦截器
+        //应用端权限拦截器
         registry.addInterceptor(appAuthInterceptor())
                 .addPathPatterns("/app/**")
-                .excludePathPatterns(
-                        "/app/user/token");
+                .excludePathPatterns("/app/user/token");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //静态目录
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
         //swagger
-        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+                .resourceChain(false);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/swagger-ui/")
+                .setViewName("forward:/swagger-ui/index.html");
     }
 
 }

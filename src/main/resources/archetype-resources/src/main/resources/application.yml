@@ -1,5 +1,10 @@
 server:
     port: 8888
+    servlet:
+        encoding:
+            charset: UTF-8
+            force: true
+            enabled: true
     tomcat:
         uri-encoding: UTF-8
         max-http-form-post-size: -1
@@ -7,11 +12,6 @@ server:
 spring:
     profiles:
         active: dev
-    http:
-        encoding:
-            force: true
-            charset: UTF-8
-            enabled: true
     servlet:
         multipart:
             max-file-size: 100MB
@@ -44,6 +44,9 @@ log:
     level: info
     basePath: .
     outputLogFile: false
+
+swagger:
+    enable: true
 
 encryption:
     des:

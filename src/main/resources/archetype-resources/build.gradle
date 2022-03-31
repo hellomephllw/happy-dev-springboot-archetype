@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.16.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.6.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
@@ -12,6 +12,10 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }
 
 jar {
@@ -34,9 +38,9 @@ repositories {
 project.ext {
     springSecurityCryptoVersion = '5.1.2.RELEASE'
     mybatisVersion = '2.1.3'
-    happyDevVersion = '3.1.0'
+    happyDevVersion = '3.1.1'
     janinoVersion = '3.1.2'
-    swaggerVersion = '2.9.2'
+    swaggerVersion = '3.0.0'
     aliJsonVersion = '1.1.15'
 }
 
@@ -49,8 +53,7 @@ dependencies {
     implementation "com.llw:happy-dev:$happyDevVersion"
     implementation "org.codehaus.janino:janino:$janinoVersion"
     implementation "org.codehaus.janino:commons-compiler:$janinoVersion"
-    implementation "io.springfox:springfox-swagger2:$swaggerVersion"
-    implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"
+    implementation "io.springfox:springfox-boot-starter:$swaggerVersion"
     implementation "com.alibaba:fastjson:$aliJsonVersion"
     runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'

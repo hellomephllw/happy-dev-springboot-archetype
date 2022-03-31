@@ -3,6 +3,7 @@ package ${package}.init;
 import com.fasterxml.classmate.TypeResolver;
 import ${package}.web.doc.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -22,6 +23,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
+    @Value("${swagger.enable}")
+    private boolean enable;
     @Autowired
     private TypeResolver typeResolver;
 
@@ -51,7 +54,7 @@ public class SwaggerConfig {
                 .build();
     }
 
-    /**游戏端接口*/
+    /**应用端接口*/
     @Bean
     public Docket gameApi() {
         return new Docket(DocumentationType.SWAGGER_2)

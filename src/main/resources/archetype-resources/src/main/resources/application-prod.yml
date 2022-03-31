@@ -45,6 +45,9 @@ log:
     level: info
     outputLogFile: true
 
+swagger:
+    enable: false
+
 encryption:
     des:
         key: ${artifactId}
