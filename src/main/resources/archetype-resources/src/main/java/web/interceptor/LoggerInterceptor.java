@@ -21,7 +21,7 @@ public class LoggerInterceptor implements HandlerInterceptor {
     private final static String REQUEST_ENTER_TIME = "__request_enter_time__";
 
     /**过滤静态资源正则*/
-    private final static String REGEX_STATIC_RESOURCE = "^(/communal/ping|/swagger-ui.html|/webjars/|/error|/swagger-resources|/csrf)+";
+    private final static String REGEX_STATIC_RESOURCE = "^(/swagger-ui.html|/webjars/|/error|/swagger-resources|/csrf)+";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
