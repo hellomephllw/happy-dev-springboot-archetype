@@ -31,9 +31,10 @@ public class SwaggerConfig {
     /**公共接口*/
     @Bean
     public Docket publicApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .additionalModels(typeResolver.resolve(StatusCode.class))
                 .groupName("open-api")
+                .enable(enable)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("${package}.web.controller.open"))
@@ -44,9 +45,10 @@ public class SwaggerConfig {
     /**管理端接口*/
     @Bean
     public Docket manageApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .additionalModels(typeResolver.resolve(StatusCode.class))
                 .groupName("manage-api")
+                .enable(enable)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("${package}.web.controller.manage"))
@@ -57,9 +59,10 @@ public class SwaggerConfig {
     /**应用端接口*/
     @Bean
     public Docket gameApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .additionalModels(typeResolver.resolve(StatusCode.class))
                 .groupName("app-api")
+                .enable(enable)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("${package}.web.controller.app"))
