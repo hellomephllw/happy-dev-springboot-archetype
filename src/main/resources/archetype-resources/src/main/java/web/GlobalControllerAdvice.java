@@ -1,12 +1,10 @@
 package ${package}.web;
 
+import ${package}.constant.BanUrlConst;
 import ${package}.constant.StatusCodeEnum;
 import com.happy.base.ResultVo;
 import com.happy.exception.BusinessException;
-import com.happy.util.CollectionUtil;
-import com.happy.util.LoggerUtil;
-import com.happy.util.NetUtil;
-import com.happy.util.StringUtil;
+import com.happy.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -23,7 +21,7 @@ import java.util.Map;
  */
 @Slf4j
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalControllerAdvice {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
@@ -56,11 +54,14 @@ public class GlobalExceptionHandler {
     }
 
     @ModelAttribute
-    public String requestBodyHandler(HttpServletRequest request, @RequestBody String requestBody) {
+    public String requestBodyHandler(HttpServletRequest request, @RequestBody(required = false) String requestBody) {
+        if (RegexUtil.find(BanUrlConst.REGEX_SWAGGER_RESOURCE, request.getRequestURI())) return requestBody;
+
         log.info("请求方式: {}", request.getMethod());
         log.info("url: {}", request.getRequestURI());
         log.info("完整请求路径: {}", request.getRequestURL());
         log.info("ContentType: {}", request.getContentType());
+
         if (isJsonType(request.getContentType())) {
             log.info("请求json参数: {}", requestBody);
         } else if (isFileType(request.getContentType())) {
