@@ -1,5 +1,6 @@
 package ${package}.web.interceptor;
 
+import ${package}.constant.BanUrlConst;
 import com.happy.util.RegexUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
@@ -20,12 +21,9 @@ public class LoggerInterceptor implements HandlerInterceptor {
     /**请求进入时间*/
     private final static String REQUEST_ENTER_TIME = "__request_enter_time__";
 
-    /**过滤静态资源正则*/
-    private final static String REGEX_STATIC_RESOURCE = "^(/swagger-ui.html|/webjars/|/error|/swagger-resources|/csrf)+";
-
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (!RegexUtil.find(REGEX_STATIC_RESOURCE, request.getRequestURI())) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        if (!RegexUtil.find(BanUrlConst.REGEX_SWAGGER_RESOURCE, request.getRequestURI())) {
             request.setAttribute(REQUEST_ENTER_TIME, System.currentTimeMillis());
             log.info(">>>>>>>>>新的请求进入");
         }
@@ -34,12 +32,12 @@ public class LoggerInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
-        if (!RegexUtil.find(REGEX_STATIC_RESOURCE, request.getRequestURI())) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) {
+        if (!RegexUtil.find(BanUrlConst.REGEX_SWAGGER_RESOURCE, request.getRequestURI())) {
             Long enterTime = (Long) request.getAttribute(REQUEST_ENTER_TIME);
             log.info("处理耗时: {}ms", System.currentTimeMillis() - enterTime);
             log.info(">>>>>>>>>请求结束");
